@@ -64,4 +64,9 @@ module.exports = {
     },
 };
 
+## Login
+1. Endpoint: POST /api/auth/login
+- Request Body:
+![Screenshot 2024-06-13 113225](https://github.com/Mayank561/Blog_api/assets/108197241/80c1d25b-7d30-4a3f-9387-787a2f524dde)
+
 
