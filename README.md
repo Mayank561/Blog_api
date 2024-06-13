@@ -155,3 +155,11 @@ Create a New Blog Post
   The API is also hosted online. You can access it at:
 
   https://blog-api-xqxj.onrender.com
+
+
+# Video
+
+https://github.com/Mayank561/Blog_api/assets/108197241/03597f05-427e-4f77-9dbc-9220ac9bed76
+
+https://github.com/Mayank561/Blog_api/assets/108197241/58bbd769-57e6-4c26-9be0-245ad5adf3ad
+
