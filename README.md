@@ -143,10 +143,10 @@ Create a New Blog Post
           - URL: /posts/:id
           - Method: DELETE
           - Headers: Authorization: Bearer <token>
-              - Response:
-                  - 200 OK on success
-                  - 404 Not Found if post does not exist
-                  - 500 Internal Server Error on error
+          - Response:
+            - 200 OK on success
+            - 404 Not Found if post does not exist
+            - 500 Internal Server Error on error
                     
 
 
