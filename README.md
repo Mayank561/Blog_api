@@ -156,7 +156,7 @@ Create a New Blog Post
 
 
 
-# Video
+# Demo Video
 
 https://github.com/Mayank561/Blog_api/assets/108197241/e60c4eb5-786e-4cb7-aaa0-d6aae332ddd4
 
