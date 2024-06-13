@@ -158,7 +158,6 @@ Create a New Blog Post
 
 # Video
 
-https://github.com/Mayank561/Blog_api/assets/108197241/03597f05-427e-4f77-9dbc-9220ac9bed76
+https://github.com/Mayank561/Blog_api/assets/108197241/e60c4eb5-786e-4cb7-aaa0-d6aae332ddd4
 
-https://github.com/Mayank561/Blog_api/assets/108197241/58bbd769-57e6-4c26-9be0-245ad5adf3ad
 
