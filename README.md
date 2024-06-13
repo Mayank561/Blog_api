@@ -65,6 +65,11 @@ This is a simple Blog Post API built with Node.js, Express, and MySQL. The API a
       The server should start on http://localhost:3000.
       ```
 
+# Hosted API
+  The API is also hosted online. You can access it at:
+
+  https://blog-api-xqxj.onrender.com
+
 # API Endpoints
 
 ## User Authentication
@@ -149,12 +154,6 @@ Create a New Blog Post
             - 500 Internal Server Error on error
                     
 
-
-
-# Hosted API
-  The API is also hosted online. You can access it at:
-
-  https://blog-api-xqxj.onrender.com
 
 
 # Video
