@@ -43,7 +43,7 @@ const login = (req, res) => {
       if (!isMatch) {
         return res.status(400).send('Invalid password');
       }
-      const token = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET, { expiresIn: '1h' }); // Corrected env variable access
+      const token = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET, { expiresIn: '1h' }); 
       res.json({ token });
     });
   });
