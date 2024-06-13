@@ -1,25 +1,25 @@
 # Blog API
+This is a simple Blog Post API built with Node.js, Express, and MySQL. The API allows users to register, login, and perform CRUD operations on blog posts. The API is secured with token-based authentication.
 
-## Overview
-This Blog API allows users to create and manage blog posts with authentication and data validation. The API is built with Node.js, Express, and MySQL.
 
 ## Features
-- User authentication (signup and login)
-- Create, read, update, and delete blog posts
+- User registration and login
+- Create, retrieve, update, and delete blog posts
 - Data validation for user inputs
 - Token-based authentication using JWT
 
-## Table of Contents
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [API Endpoints](#api-endpoints)
-  - [Authentication](#authentication)
-  - [Blog Posts](#blog-posts)
-- [Usage](#usage)
-- [Code Quality](#code-quality)
-- [Best Practices](#best-practices)
-- [License](#license)
-- [Video Tutorial](#video-tutorial)
+## Technologies Used
+- Node.js
+- Express
+- MySQL
+- JWT (JSON Web Token) for authentication
+- bcryptjs for password hashing
+- dotenv for environment variable management
+
+## Prerequisites
+- Node.js installed
+- MySQL installed and running
+- A MySQL database created
 
 ## Installation
 1. Clone the repository:
@@ -31,110 +31,127 @@ This Blog API allows users to create and manage blog posts with authentication a
     ```bash
     npm install
     ```
- 3. Start the MySQL server and create a database named `blog_db`.
-4. Configure the database connection settings in `config/config.js`.
-5. 5. Run the migrations to set up the database schema:
-    ```bash
-    npx sequelize-cli db:migrate
+    
+3. Set Up Environment Variables
+   Create a .env file in the root of the project and add the following variables:
+
+    ![Screenshot 2024-06-13 123737](https://github.com/Mayank561/Blog_api/assets/108197241/3bf0af33-c771-471c-9f78-0f34dd989a45)
+
+4. Set Up the Database
+   Create the necessary tables in your MySQL database:
+
     ```
-6. Start the server:
-    ```bash
-    npm start
-    ```
+    CREATE DATABASE blog;
 
-## Configuration
-Configure your database connection and other environment variables in the `config/config.js` file:
-```javascript
-module.exports = {
-    development: {
-        username: 'root',
-        password: '',
-        database: 'blog_db',
-        host: '127.0.0.1',
-        dialect: 'mysql',
-    },
-    production: {
-       const connection = mysql.createConnection({
-       host: process.env.MYSQL_HOST,
-       user: process.env.MYSQL_USER,
-       password: process.env.MYSQL_PASSWORD,
-       database: process.env.MYSQL_DATABASE,
-       port: process.env.MYSQL_PORT
-});
-    },
-};
-```
+    USE blog;
 
-## API Endpoints
+    CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+    );
 
-### Authentication
+    CREATE TABLE blog_posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    author_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id)
+    );
 
-#### Register
+    5. Run the Server
+      npm start
+      The server should start on http://localhost:3000.
+      ```
 
-Endpoint: POST /api/auth/register
+# API Endpoints
 
-Request Body:
+## User Authentication
 
-![Screenshot 2024-06-13 121536](https://github.com/Mayank561/Blog_api/assets/108197241/c7e6d612-965b-4a1f-8b36-7ef437426a3e)
+## Register
+- URL: `/register`
+- Method: POST
+- Body:
+  
+    ![Screenshot 2024-06-13 125520](https://github.com/Mayank561/Blog_api/assets/108197241/ebfb702f-043a-468b-91a9-e8e513fc908e)
 
-### Login
+- Response:
+  - 201 Created on success
+  - 400 Bad Request if email or password is missing
+  - 500 Internal Server Error on hashing or user creation error
+ 
+## login
+- URL: /login
+- Method: POST
+- Body:
 
-Endpoint: POST /api/auth/login
+    ![Screenshot 2024-06-13 125520](https://github.com/Mayank561/Blog_api/assets/108197241/ebfb702f-043a-468b-91a9-e8e513fc908e)
 
-Request Body:
+  - Response:
+    - 200 OK with JWT token on success
+    - 400 Bad Request if email or password is missing
+    - 404 Not Found if user does not exist
+    - 500 Internal Server Error on error
 
-![Screenshot 2024-06-13 121536](https://github.com/Mayank561/Blog_api/assets/108197241/c7e6d612-965b-4a1f-8b36-7ef437426a3e)
+## Blog Posts
+Create a New Blog Post
+  - URL: /posts
+  - Method: POST
+  - Headers: Authorization: Bearer <token>
+  - Body:
+
+      ![Screenshot 2024-06-13 130215](https://github.com/Mayank561/Blog_api/assets/108197241/e8ee5c66-72b0-433a-a4d4-7a6f0466ef3e)
+
+     - Response:
+         - 201 Created on success
+         - 400 Bad Request if title or content is missing
+         - 500 Internal Server Error on error
+      
+
+     Retrieve All Blog Posts
+      - URL: /posts
+      - Method: GET
+      - Response:
+          - 200 OK with list of posts on success
+          - 500 Internal Server Error on error
+       
+    Retrieve a Single Blog Post by ID
+      - URL: /posts/:id
+      - Method: GET
+      - Response:
+          - 200 OK with post data on success
+          - 404 Not Found if post does not exist
+          - 500 Internal Server Error on error
+
+    Update an Existing Blog Post
+      - URL: /posts/:id
+      - Method: PUT
+      - Headers: Authorization: Bearer <token>
+      - Body:
+        
+         ![Screenshot 2024-06-13 131123](https://github.com/Mayank561/Blog_api/assets/108197241/6cd61498-ff6d-4af5-8277-524a3be425b5)
+
+    - Response:
+      - 200 OK on success
+      - 400 Bad Request if title or content is missing
+      - 404 Not Found if post does not exist
+      - 500 Internal Server Error on error
 
 
-# Blog Posts
-
-## Create a Post
-
-Endpoint: POST /api/posts
-
-Request Body:
-
-![Screenshot 2024-06-13 121959](https://github.com/Mayank561/Blog_api/assets/108197241/c2f58ab4-ba5f-4c6e-8a4b-77daaa1300cf)
-
-
-### Get All Posts
-
-Endpoint: GET /api/posts
-
-Response:
-
-![Screenshot 2024-06-13 115811](https://github.com/Mayank561/Blog_api/assets/108197241/3711e410-56da-4bb5-92d1-71fff50700c8)
-
-### Get a Single Post
-Endpoint: GET /api/posts/:id
-
-Response:
-
-![Screenshot 2024-06-13 120248](https://github.com/Mayank561/Blog_api/assets/108197241/1065d0dd-d666-4c57-b1d1-830b7ad2d84d)
-
-
-### Update a Post
-Endpoint: PUT /api/posts/:id
-
-Request Body:
-
-![Screenshot 2024-06-13 120501](https://github.com/Mayank561/Blog_api/assets/108197241/1ac6cde9-7923-4447-b4d3-360782800146)
-
-
-### Delete a Post
-Endpoint: DELETE /api/posts/
-
-Response:
-
-![Screenshot 2024-06-13 120801](https://github.com/Mayank561/Blog_api/assets/108197241/652cd945-fab8-4620-8e66-60429158ecfd)
+        Delete a Blog Post
+          - URL: /posts/:id
+          - Method: DELETE
+          - Headers: Authorization: Bearer <token>
+              - Response:
+                  - 200 OK on success
+                  - 404 Not Found if post does not exist
+                  - 500 Internal Server Error on error
+                    
 
 
 
-# Usage
-To use the API, follow the installation and configuration instructions above, then start the server and use the provided endpoints to interact with the API.
+# Hosted API
+  The API is also hosted online. You can access it at:
 
-# Code Quality
-The code adheres to best practices for readability and maintainability, including proper indentation, meaningful variable names, and modular structure. ESLint is used to enforce code standards.
-
-## Best Practices
-
+  https://blog-api-xqxj.onrender.com
